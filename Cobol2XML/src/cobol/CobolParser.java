@@ -44,6 +44,8 @@ public class CobolParser {
 	public Parser cobol() {
 		Alternation a = new Alternation();
 		
+		a.add( CommentLine() );
+		
 		a.add( constantValue() );
 		
 		Symbol fullstop = new Symbol('.');
@@ -161,4 +163,23 @@ public class CobolParser {
 		s.setAssembler(new ConstantValueAssembler());
 		return s;
 		}
+	/*
+	* Return a parser that will recognize the grammar:
+	*
+	* ***--- comment text
+	*
+	*/
+	protected Parser CommentLine() {
+	//System.out.println("commentLine()");
+	Sequence s = new Sequence();
+	s.add(new Symbol("*"));
+	s.add(new Symbol("*"));
+	s.add(new Symbol("*"));
+	s.add(new Symbol("-"));
+	s.add(new Symbol("-"));
+	s.add(new Symbol("-"));
+	s.add(new Word().setAssembler(new CommentLineAssembler()) );
+	//s.setAssembler(new CommentLineAssembler());
+	return s;
+	}
 }

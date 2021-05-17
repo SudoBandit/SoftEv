@@ -10,6 +10,7 @@ public class LitTokenTest {
 
 	@Test
 	public void test() {
+		
 		String a = "a";
 		Literal t1 = new Literal(a);
 		Token i = new Token("a");

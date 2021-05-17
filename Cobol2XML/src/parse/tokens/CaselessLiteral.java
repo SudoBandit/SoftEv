@@ -42,8 +42,8 @@ public CaselessLiteral(String literal) {
  * @return   true, if the specified literal equals the next 
  *           token from an assembly, disregarding case
  */
-protected boolean qualifies(Object o) {
-//public boolean qualifies(Object o) {
+//protected boolean qualifies(Object o) {
+public boolean qualifies(Object o) {
 	return literal.equalsIgnoreCase((Token) o);
 }
 }

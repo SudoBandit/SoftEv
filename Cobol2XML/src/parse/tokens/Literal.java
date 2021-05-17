@@ -49,8 +49,8 @@ public Literal(String s) {
  * @return   true, if the specified literal equals the next 
  *           token from an assembly
  */
-protected boolean qualifies(Object o) {
-//public boolean qualifies(Object o) {
+//protected boolean qualifies(Object o) {
+public boolean qualifies(Object o) {
 	return literal.equals((Token) o);
 }
 /**
