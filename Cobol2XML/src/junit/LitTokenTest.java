@@ -14,7 +14,7 @@ public class LitTokenTest {
 		String a = "a";
 		Literal t1 = new Literal(a);
 		Token i = new Token("a");
-		System.out.println(t1.qualifies(i));
+		assertTrue(t1.qualifies(i));
 	}
 
 }
