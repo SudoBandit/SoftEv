@@ -61,7 +61,7 @@ public class Cobol2XML {
 		
 		InputStream is = new FileInputStream(args[0]);
 		BufferedReader r = 	new BufferedReader(new InputStreamReader(is));
-
+		
 		Tokenizer t = CobolParser.tokenizer();
 		Parser p = CobolParser.start();
 		
