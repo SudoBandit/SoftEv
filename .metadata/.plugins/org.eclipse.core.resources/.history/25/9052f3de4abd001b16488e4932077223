@@ -1,0 +1,23 @@
+package cobol;
+import parse.*;
+import parse.tokens.*;
+public class recordDescriptionAssembler extends Assembler {
+	/**
+	 *
+	 * @param Assembly the assembly to work on
+	 */
+	public void workOn(Assembly a) {
+		Cobol c = new Cobol();
+		Token t = (Token) a.pop();
+		String tokenString = t.sval().trim();
+		String symbol = "" + tokenString.charAt(0);
+		if()
+		String pictureClause = 
+		
+		
+		t = (Token) a.pop();
+		c.setDayDateWritten( (int) t.nval() );
+		a.setTarget(c);
+	}
+	}
+
