@@ -140,11 +140,23 @@ public class XMLPayload {
 		if(yearDateWritten != 0) {
 			this.addYearDateWrittenElement( yearDateWritten );
 		}
+		
+		String remarks = c.getRemarks();
+		if (remarks != null) {
+			this.addRemarksElement(remarks);
+		}
 
 	}
 	
 
- 	void addProgram_IDElement(String stringElement) {
+ 	void addRemarksElement(String remarks) {
+ 			Element remarksName = doc.createElement("Remarks");
+ 			remarksName.appendChild(doc.createTextNode(remarks));
+ 			rootElement.appendChild(remarksName);	
+	}
+
+
+	void addProgram_IDElement(String stringElement) {
 		//  Program ID element
 		
 		if(stringElement != null) {
@@ -253,6 +265,7 @@ public class XMLPayload {
 			constID.setAttributeNode(attrType2);
 			cobolname.appendChild(constID);
 			// insert line number of constant into XML file
+			//This is currently inserting 88 which isn't the line number
 			Element lineID = doc.createElement(constantName);
 			Attr attrType = doc.createAttribute("Line_Number" );
 			attrType.setValue( Integer.toString(lineNumber) );

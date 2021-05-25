@@ -1,6 +1,4 @@
 package cobol;
-import java.util.ArrayList;
-
 import parse.*;
 import parse.tokens.*;
 public class CommentLineAssembler extends Assembler {
@@ -14,21 +12,15 @@ public class CommentLineAssembler extends Assembler {
 		//System.out.println("commentLineAssembler");
 		StringBuilder comment = new StringBuilder();
 		Cobol c = new Cobol();
-		System.out.println(a.toString());
 		comment.append(a.pop());
 		while (a.hasMoreElements()) {
 			comment.append(" ");
 			Token t = (Token) a.nextElement();
-			System.out.println(t);
-			if(t.sval() != null) {				
 				comment.append(t);
-			}
-			else
-				comment.append(t.nval());
-
 		}
 		String comments = comment.toString();
 		c.setCommentLine(comments);
 		a.setTarget(c);
 	}
 }
+

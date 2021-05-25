@@ -20,6 +20,9 @@
  */
 package cobol;
 
+import java.io.IOException;
+
+import jdk.nashorn.internal.parser.Token;
 import parse.Alternation;
 import parse.Empty;
 import parse.Parser;
@@ -28,6 +31,7 @@ import parse.tokens.CaselessLiteral;
 import parse.tokens.Num;
 import parse.tokens.Symbol;
 import parse.tokens.Tokenizer;
+import parse.tokens.WhitespaceState;
 import parse.tokens.Word;
 
 public class CobolParser {
@@ -44,7 +48,7 @@ public class CobolParser {
 	public Parser cobol() {
 		Alternation a = new Alternation();
 		
-		a.add( CommentLine() );
+		a.add( commentLine() );
 		
 		a.add( constantValue() );
 		
@@ -58,6 +62,8 @@ public class CobolParser {
 		a.add( SectionName() );
 		
 		a.add( DateWritten() );
+		
+		a.add( remarks() );
 		
 		a.add(new Empty());
 		return a;
@@ -129,6 +135,16 @@ public class CobolParser {
 		s.setAssembler(new DateAssembler());
 		return s;
 	}
+	
+	protected Parser remarks() {
+		Sequence s = new Sequence();
+		s.add(new CaselessLiteral("remarks").setAssembler(new RemarksAssembler()));
+		//work out how to get rid of white space
+		s.add(new Symbol('.').discard());
+		s.add(new Word());
+		return s;
+		
+	}
 
 
 	/**
@@ -169,17 +185,17 @@ public class CobolParser {
 	* ***--- comment text
 	*
 	*/
-	protected Parser CommentLine() {
+	protected Parser commentLine() {
 	//System.out.println("commentLine()");
 	Sequence s = new Sequence();
-	s.add(new Symbol("*"));
-	s.add(new Symbol("*"));
-	s.add(new Symbol("*"));
-	s.add(new Symbol("-"));
-	s.add(new Symbol("-"));
-	s.add(new Symbol("-"));
-	s.add(new Word().setAssembler(new CommentLineAssembler()) );
-	//s.setAssembler(new CommentLineAssembler());
+	s.add(new Symbol("*").discard());
+	s.add(new Symbol("*").discard());
+	s.add(new Symbol("*").discard());
+	s.add(new Symbol("-").discard());
+	s.add(new Symbol("-").discard());
+	s.add(new Symbol("-").discard());
+	s.add(new Word());
+	s.setAssembler(new CommentLineAssembler());
 	return s;
 	}
 }
