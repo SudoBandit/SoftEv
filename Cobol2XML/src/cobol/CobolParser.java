@@ -78,6 +78,8 @@ public class CobolParser {
 		
 		s.add(new Word() );
 		
+	
+		
 		s.add(new CaselessLiteral("pic").discard() );
 		
 		//s.add(new Num());
