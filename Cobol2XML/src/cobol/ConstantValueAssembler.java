@@ -16,6 +16,7 @@ public void workOn(Assembly a) {
 	//System.out.println("Token string[2]: " + c.getConstantName() );
 	t = (Token) a.pop();
 	c.setLineNumber( (int) Math.round(t.nval()) );
+	// ^ is currently showing the string "88" which is not the line number
 	//System.out.println("Token string[2]: " + c.getLineNumber() );
 	a.setTarget(c);
 }

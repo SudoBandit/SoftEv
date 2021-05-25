@@ -34,7 +34,38 @@ public class Cobol implements PubliclyCloneable {
 	protected String constantName;
 	protected double constantValue;
 	protected int lineNumber = 0;
+	protected String remarks;
+	protected int recordDescriptionLength;
+	protected String recordDescriptionSymbol;
+	protected String recordDescriptionPicDesc;
+	protected String recordDescriptionName;
 	
+	
+	
+	public int getRecordDescriptionLength() {
+		return recordDescriptionLength;
+	}
+	public void setRecordDescriptionLength(int recordDescriptionLength) {
+		this.recordDescriptionLength = recordDescriptionLength;
+	}
+	public String getRecordDescriptionSymbol() {
+		return recordDescriptionSymbol;
+	}
+	public void setRecordDescriptionSymbol(String recordDescriptionSymbol) {
+		this.recordDescriptionSymbol = recordDescriptionSymbol;
+	}
+	public String getRecordDescriptionPicDesc() {
+		return recordDescriptionPicDesc;
+	}
+	public void setRecordDescriptionPicDesc(String recordDescriptionPicDesc) {
+		this.recordDescriptionPicDesc = recordDescriptionPicDesc;
+	}
+	public String getRecordDescriptionName() {
+		return recordDescriptionName;
+	}
+	public void setRecordDescriptionName(String recordDescriptionName) {
+		this.recordDescriptionName = recordDescriptionName;
+	}
 	public String getConstantName() {
 		return constantName;
 	}
@@ -159,6 +190,15 @@ public class Cobol implements PubliclyCloneable {
 	public int getDayDateWritten() {
 		return dayDateWritten;
 	}
+	
+	/**
+	 * Return the remarks of this COBOL program.
+	 *
+	 * @return the remarks of this COBOL program.
+	 */
+	public String getRemarks() {
+		return remarks;
+	}
 
 	
 	/**
@@ -209,9 +249,9 @@ public class Cobol implements PubliclyCloneable {
 	}
 	
 	/**
-	 * Return the monthWritten of this COBOL program.
+	 * Set the monthWritten of this COBOL program.
 	 *
-	 * @return the monthWritten of this COBOL program
+	 * @param the monthWritten of this COBOL program
 	 */
 	public void setMonthDateWritten(String monthDateWritten) {
 		this.monthDateWritten = monthDateWritten;
@@ -244,6 +284,18 @@ public class Cobol implements PubliclyCloneable {
 	public void setDivisionName(String divisionName) {
 		this.divisionName = divisionName;
 	}
+	
+	/**
+	 * Set the remarks  
+	 *
+	 * @param  String remarks
+	 */
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	
+	
+	
 
 	/**
 	 * Return a textual description of this cobol type.
@@ -251,13 +303,13 @@ public class Cobol implements PubliclyCloneable {
 	 * @return a textual description of this cobol type
 	 */
 	public String toString() {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
+			//changed to builder from buffer.
 		buf.append(program_id);
 		buf.append(", ");
 		buf.append(divisionName);
 		buf.append(", ");
 		buf.append(sectionName);
-		
 		return buf.toString();
 	}
 }

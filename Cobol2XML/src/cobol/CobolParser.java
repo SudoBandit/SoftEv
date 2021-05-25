@@ -20,6 +20,8 @@
  */
 package cobol;
 
+import java.io.IOException;
+
 import parse.Alternation;
 import parse.Empty;
 import parse.Parser;
@@ -29,6 +31,8 @@ import parse.tokens.Num;
 import parse.tokens.Symbol;
 import parse.tokens.Tokenizer;
 import parse.tokens.Word;
+
+
 
 public class CobolParser {
 	/**
@@ -44,12 +48,14 @@ public class CobolParser {
 	public Parser cobol() {
 		Alternation a = new Alternation();
 		
-		a.add( CommentLine() );
+		a.add( recordDescription());
+		
+		a.add( commentLine() );
 		
 		a.add( constantValue() );
 		
-		Symbol fullstop = new Symbol('.');
-		fullstop.discard();
+		//Symbol fullstop = new Symbol('.');
+		//fullstop.discard();
 		
 		a.add( ProgramID() );
 		
@@ -57,12 +63,36 @@ public class CobolParser {
 		
 		a.add( SectionName() );
 		
-		a.add( DateWritten() );
+		a.add( DateWritten() );		
+	
+		a.add( remarks() );
+		//currently not working with whitespace properly
 		
 		a.add(new Empty());
 		return a;
 	}
 	
+	private Parser recordDescription() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		
+		s.add(new Word() );
+		
+		s.add(new CaselessLiteral("pic").discard() );
+		
+		s.add(new Word());
+		
+		s.add(new Symbol('(').discard());
+		s.add(new Num());
+		s.add(new Symbol(')').discard());
+			
+		s.setAssembler(new recordDescriptionAssembler());
+		
+
+
+		return s;
+	}
+
 	/*
 	 * Return a parser that will recognize the grammar:
 	 * 
@@ -103,15 +133,14 @@ public class CobolParser {
 		Sequence s = new Sequence();
 		s.add(new Word().setAssembler(new SectionNameAssembler()));
 		s.add(new CaselessLiteral("section") );
-		s.add(new Symbol('.').discard());	
-
+		s.add(new Symbol('.').discard());
 		return s;
 	}
 	
 	/*
 	 * Return a parser that will recognise the grammar:
 	 * 
-	 *    working-storage section
+	 *    date-written.
 	 *
 	 */
 	protected Parser DateWritten() {
@@ -128,6 +157,19 @@ public class CobolParser {
 		s.add(new Symbol('.').discard());
 		s.setAssembler(new DateAssembler());
 		return s;
+	}
+	
+	protected Parser remarks() {
+		Sequence s = new Sequence();
+		s.add(new CaselessLiteral("remarks"));
+		//work out how to get rid of white space
+		s.add(new Symbol('.').discard());
+		s.add(new Word());
+		//s.add(new Symbol('.').discard());
+		s.setAssembler(new RemarksAssembler());
+		
+		return s;
+		
 	}
 
 
@@ -149,7 +191,7 @@ public class CobolParser {
 	 */
 	public static Tokenizer tokenizer() {
 		Tokenizer t = new Tokenizer();
-		t.wordState().setWordChars(' ', ' ', false);
+		//t.wordState().setWordChars(' ', ' ', false);
 		return t;
 	}
 
@@ -164,22 +206,24 @@ public class CobolParser {
 		return s;
 		}
 	/*
-	* Return a parser that will recognize the grammar:
+	* Return a parser that will recognise the grammar:
 	*
 	* ***--- comment text
 	*
 	*/
-	protected Parser CommentLine() {
+	protected Parser commentLine() {
 	//System.out.println("commentLine()");
 	Sequence s = new Sequence();
-	s.add(new Symbol("*"));
-	s.add(new Symbol("*"));
-	s.add(new Symbol("*"));
-	s.add(new Symbol("-"));
-	s.add(new Symbol("-"));
-	s.add(new Symbol("-"));
-	s.add(new Word().setAssembler(new CommentLineAssembler()) );
-	//s.setAssembler(new CommentLineAssembler());
+	s.add(new Symbol("*").discard());
+	s.add(new Symbol("*").discard());
+	s.add(new Symbol("*").discard());
+	s.add(new Symbol("-").discard());
+	s.add(new Symbol("-").discard());
+	s.add(new Symbol("-").discard());
+	s.add(new Word());
+	s.setAssembler(new CommentLineAssembler());
 	return s;
 	}
+	
+	
 }

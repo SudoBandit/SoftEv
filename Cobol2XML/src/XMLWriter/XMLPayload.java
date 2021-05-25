@@ -28,7 +28,6 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -58,6 +57,19 @@ public class XMLPayload {
 	
 	
 	public void addElements(Cobol c) {
+		/*
+		* add recordDescription element
+		*/
+		String recordDescription = c.getRecordDescriptionName();
+		if (recordDescription != null) {
+		this.addRecordDescriptionElement( recordDescription,
+		c.getRecordDescriptionLength(), c.getRecordDescriptionSymbol(), c.getRecordDescriptionPicDesc());
+		//System.out.println("Got Section");
+		// Add contents of procedure division
+		} else {
+		//System.out.println("Comment Line null");
+		}
+		
 		/*
 		* add commentLine element
 		*/
@@ -141,11 +153,47 @@ public class XMLPayload {
 		if(yearDateWritten != 0) {
 			this.addYearDateWrittenElement( yearDateWritten );
 		}
+		
+		String remarks = c.getRemarks();
+		if (remarks != null) {
+			this.addRemarksElement(remarks);
+		}
 
 	}
 	
 
- 	void addProgram_IDElement(String stringElement) {
+ 	private void addRecordDescriptionElement(String recordDescription, int recordDescriptionLength, String recordDescriptionSymbol, String recordDescriptionPicDesc) {
+		// TODO Auto-generated method stub
+ 		Element recordDescriptionElement = doc.createElement("Record_Decription");
+ 		
+ 		Attr attrType = doc.createAttribute("Name");
+		attrType.setValue(recordDescription);
+		recordDescriptionElement.setAttributeNode(attrType);
+		
+		Attr attrType1 = doc.createAttribute("Length");
+		attrType1.setValue(Integer.toString(recordDescriptionLength));
+		recordDescriptionElement.setAttributeNode(attrType1);
+		
+		Attr attrType2 = doc.createAttribute("Symbol");
+		attrType2.setValue(recordDescriptionSymbol);
+		recordDescriptionElement.setAttributeNode(attrType2);
+		
+		Attr attrType3 = doc.createAttribute("Pic_Description");
+		attrType3.setValue(recordDescriptionPicDesc);
+		recordDescriptionElement.setAttributeNode(attrType3);
+		
+		rootElement.appendChild(recordDescriptionElement);
+	}
+
+
+	void addRemarksElement(String remarks) {
+ 			Element remarksName = doc.createElement("Remarks");
+ 			remarksName.appendChild(doc.createTextNode(remarks));
+ 			rootElement.appendChild(remarksName);	
+	}
+
+
+	void addProgram_IDElement(String stringElement) {
 		//  Program ID element
 		
 		if(stringElement != null) {
@@ -254,6 +302,7 @@ public class XMLPayload {
 			constID.setAttributeNode(attrType2);
 			cobolname.appendChild(constID);
 			// insert line number of constant into XML file
+			//This is currently inserting 88 which isn't the line number
 			Element lineID = doc.createElement(constantName);
 			Attr attrType = doc.createAttribute("Line_Number" );
 			attrType.setValue( Integer.toString(lineNumber) );
@@ -268,6 +317,4 @@ public class XMLPayload {
 			rootElement.appendChild(cobolname);
 			}
 			}
-	
-
 }
