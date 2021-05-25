@@ -126,7 +126,6 @@ public class CobolParser {
 		s.add(new Symbol('.').discard());
 		s.add(new Num());
 		s.add(new Symbol('-').discard());
-
 		//This next Word actually contains month and year (which are extracted in DateAssembler
 		s.add(new Word());
 		s.add(new Symbol('-').discard());
@@ -139,8 +138,6 @@ public class CobolParser {
 	protected Parser remarks() {
 		Sequence s = new Sequence();
 		s.add(new CaselessLiteral("remarks"));
-		//work out how to get rid of white space
-		s.add(new Symbol('.').discard());
 		s.add(new Word());
 		//s.add(new Symbol('.').discard());
 		s.setAssembler(new RemarksAssembler());
@@ -201,6 +198,5 @@ public class CobolParser {
 	s.setAssembler(new CommentLineAssembler());
 	return s;
 	}
-	
 	
 }

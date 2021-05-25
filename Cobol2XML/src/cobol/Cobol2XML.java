@@ -74,6 +74,8 @@ public class Cobol2XML {
 			}
 			t.setString(s);
 			Assembly in = new TokenAssembly(t);
+			System.out.println(p.bestMatch(in).peek());
+			
 			Assembly out = p.bestMatch(in);
 			Cobol c = new Cobol();
 			c = (Cobol) out.getTarget();
