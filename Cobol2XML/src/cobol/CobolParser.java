@@ -80,12 +80,12 @@ public class CobolParser {
 		
 		s.add(new CaselessLiteral("pic").discard() );
 		
-		s.add(new Word());
-		
-		s.add(new Symbol('(').discard());
-		s.add(new Num());
-		s.add(new Symbol(')').discard());
-			
+		//s.add(new Num());
+//		
+//		s.add(new Symbol('(').discard());
+//		s.add(new Num());
+//		s.add(new Symbol(')').discard());
+//		s.add(new Symbol('.').discard());
 		s.setAssembler(new recordDescriptionAssembler());
 		
 

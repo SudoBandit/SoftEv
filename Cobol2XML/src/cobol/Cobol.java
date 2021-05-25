@@ -39,9 +39,16 @@ public class Cobol implements PubliclyCloneable {
 	protected String recordDescriptionSymbol;
 	protected String recordDescriptionPicDesc;
 	protected String recordDescriptionName;
+	protected int recordDescriptionType;
 	
 	
 	
+	public int getRecordDescriptionType() {
+		return recordDescriptionType;
+	}
+	public void setRecordDescriptionType(int recordDescriptionType) {
+		this.recordDescriptionType = recordDescriptionType;
+	}
 	public int getRecordDescriptionLength() {
 		return recordDescriptionLength;
 	}
