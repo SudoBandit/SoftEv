@@ -58,19 +58,6 @@ public class XMLPayload {
 	
 	public void addElements(Cobol c) {
 		/*
-		* add recordDescription element
-		*/
-		String recordDescription = c.getRecordDescriptionName();
-		if (recordDescription != null) {
-		this.addRecordDescriptionElement( recordDescription,
-		c.getRecordDescriptionLength(), c.getRecordDescriptionSymbol(), c.getRecordDescriptionPicDesc());
-		//System.out.println("Got Section");
-		// Add contents of procedure division
-		} else {
-		//System.out.println("Comment Line null");
-		}
-		
-		/*
 		* add commentLine element
 		*/
 		String commentLine = c.getCommentLine();
@@ -162,31 +149,7 @@ public class XMLPayload {
 	}
 	
 
- 	private void addRecordDescriptionElement(String recordDescription, int recordDescriptionLength, String recordDescriptionSymbol, String recordDescriptionPicDesc) {
-		// TODO Auto-generated method stub
- 		Element recordDescriptionElement = doc.createElement("Record_Decription");
- 		
- 		Attr attrType = doc.createAttribute("Name");
-		attrType.setValue(recordDescription);
-		recordDescriptionElement.setAttributeNode(attrType);
-		
-		Attr attrType1 = doc.createAttribute("Length");
-		attrType1.setValue(Integer.toString(recordDescriptionLength));
-		recordDescriptionElement.setAttributeNode(attrType1);
-		
-		Attr attrType2 = doc.createAttribute("Symbol");
-		attrType2.setValue(recordDescriptionSymbol);
-		recordDescriptionElement.setAttributeNode(attrType2);
-		
-		Attr attrType3 = doc.createAttribute("Pic_Description");
-		attrType3.setValue(recordDescriptionPicDesc);
-		recordDescriptionElement.setAttributeNode(attrType3);
-		
-		rootElement.appendChild(recordDescriptionElement);
-	}
-
-
-	void addRemarksElement(String remarks) {
+ 	void addRemarksElement(String remarks) {
  			Element remarksName = doc.createElement("Remarks");
  			remarksName.appendChild(doc.createTextNode(remarks));
  			rootElement.appendChild(remarksName);	

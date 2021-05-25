@@ -35,37 +35,7 @@ public class Cobol implements PubliclyCloneable {
 	protected double constantValue;
 	protected int lineNumber = 0;
 	protected String remarks;
-	protected int recordDescriptionLength;
-	protected String recordDescriptionSymbol;
-	protected String recordDescriptionPicDesc;
-	protected String recordDescriptionName;
 	
-	
-	
-	public int getRecordDescriptionLength() {
-		return recordDescriptionLength;
-	}
-	public void setRecordDescriptionLength(int recordDescriptionLength) {
-		this.recordDescriptionLength = recordDescriptionLength;
-	}
-	public String getRecordDescriptionSymbol() {
-		return recordDescriptionSymbol;
-	}
-	public void setRecordDescriptionSymbol(String recordDescriptionSymbol) {
-		this.recordDescriptionSymbol = recordDescriptionSymbol;
-	}
-	public String getRecordDescriptionPicDesc() {
-		return recordDescriptionPicDesc;
-	}
-	public void setRecordDescriptionPicDesc(String recordDescriptionPicDesc) {
-		this.recordDescriptionPicDesc = recordDescriptionPicDesc;
-	}
-	public String getRecordDescriptionName() {
-		return recordDescriptionName;
-	}
-	public void setRecordDescriptionName(String recordDescriptionName) {
-		this.recordDescriptionName = recordDescriptionName;
-	}
 	public String getConstantName() {
 		return constantName;
 	}
