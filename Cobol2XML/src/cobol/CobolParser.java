@@ -39,44 +39,44 @@ import parse.tokens.Word;
 public class CobolParser {
 	/**
 	 * Return a parser that will recognize the selected COBOL source code constructs:
-	 * 
-	 * 
+	 *
+	 *
 	 * This parser creates a <code>COBOL</code> object
 	 * as an assembly's target.
 	 *
-	 * @return a parser that will recognize and build a 
+	 * @return a parser that will recognize and build a
 	 *         <object>COBOL</object> from a source code file.
 	 */
 	public Parser cobol() {
 		Alternation a = new Alternation();
-		
-		//a.add( recordDescription());
-		
+
+		a.add( recordDescription());
+		a.add( recordDescription2());
 		a.add( commentLine() );
-		
+
 		a.add( constantValue() );
-		
+
 		//Symbol fullstop = new Symbol('.');
 		//fullstop.discard();
-		
+
 		a.add( ProgramID() );
-		
+
 		a.add( DivisionName() );
-		
+
 		a.add( SectionName() );
-		
-		a.add( DateWritten() );		
-	
+
+		a.add( DateWritten() );
+
 		a.add( redefinesDescription() );
-		
-		
+
+
 		//a.add( remarks() );
 		//currently not working with whitespace properly
-		
+
 		a.add(new Empty());
 		return a;
 	}
-	
+
 	private Parser recordDescription() {
 		Sequence s = new Sequence();
 		s.add(new Num());
@@ -85,7 +85,7 @@ public class CobolParser {
 		s.setAssembler(new RecordDescriptionAssembler());
 		return s;
 	}
-	
+
 	private Parser redefinesDescription() {
 		Sequence s = new Sequence();
 		s.add(new Literal(1.0).discard());
@@ -95,25 +95,48 @@ public class CobolParser {
 		s.setAssembler(new RedefinesDescriptionAssembler());
 		return s;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
+
+
+
+
+
+
+
+
+	private Parser recordDescription2() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+
+		s.add(new Word() );
+
+		s.add(new Word());
+		s.add(new Word());
+
+		s.add(new CaselessLiteral("pic").discard() );
+
+
+//
+//		s.add(new Symbol('(').discard());
+//		s.add(new Num());
+//		s.add(new Symbol(')').discard());
+//		s.add(new Symbol('.').discard());
+		s.setAssembler(new recordDescriptionAssembler());
+
+
+
+		return s;
+	}
 	/*
 	 * Return a parser that will recognize the grammar:
-	 * 
+	 *
 	 *    Program Identifier = Word
 	 *
 	 */
 	protected Parser ProgramID() {
 		Sequence s = new Sequence();
 		s.add(new CaselessLiteral("program-id") );
-		s.add(new Symbol('.').discard());	
+		s.add(new Symbol('.').discard());
 		s.add(new Word().setAssembler(new Program_idAssembler()));
 		return s;
 	}
@@ -122,7 +145,7 @@ public class CobolParser {
 
 	/*
 	 * Return a parser that will recognise the grammar:
-	 * 
+	 *
 	 *    <divisionName> division
 	 *
 	 */
@@ -133,10 +156,10 @@ public class CobolParser {
 		s.add(new Symbol('.').discard());
 		return s;
 	}
-	
+
 	/*
 	 * Return a parser that will recognize the grammar:
-	 * 
+	 *
 	 *    Section Name = Word
 	 *
 	 */
@@ -147,10 +170,10 @@ public class CobolParser {
 		s.add(new Symbol('.').discard());
 		return s;
 	}
-	
+
 	/*
 	 * Return a parser that will recognise the grammar:
-	 * 
+	 *
 	 *    date-written.
 	 *
 	 */
@@ -169,7 +192,7 @@ public class CobolParser {
 		s.setAssembler(new DateAssembler());
 		return s;
 	}
-	
+
 	protected Parser remarks() {
 		Sequence s = new Sequence();
 		s.add(new CaselessLiteral("remarks"));
@@ -178,9 +201,9 @@ public class CobolParser {
 		s.add(new Word());
 		//s.add(new Symbol('.').discard());
 		s.setAssembler(new RemarksAssembler());
-		
+
 		return s;
-		
+
 	}
 
 
@@ -235,6 +258,6 @@ public class CobolParser {
 	s.setAssembler(new CommentLineAssembler());
 	return s;
 	}
-	
-	
+
+
 }

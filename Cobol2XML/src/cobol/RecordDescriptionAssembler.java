@@ -20,8 +20,7 @@ public class RecordDescriptionAssembler extends Assembler {
 		 
 		 if(type == 1) {
 			  t = (Token)  a.nextElement();
-			  
-			 //
+
 			 		String symbol = t.toString();
 			 		
 			 		

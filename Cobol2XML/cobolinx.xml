@@ -11,6 +11,7 @@
     <Data_Type Length="99" Name="rest_divide" Type="77"/>
     <Data_Type Length="16" Name="w_number" Pic_Description="Numeric" Symbol="9" Type="1"/>
     <Data_Type Length="16" Name="entry_number" Pic_Description="Numeric" Symbol="9" Type="1"/>
+    <Data_Type Length="0" Name="entry_number" Type="0"/>
     <Data_Type Length="2" Name="current_base" Pic_Description="Numeric" Symbol="9" Type="1"/>
     <Constant>
         <Constant Name="base_2"/>
