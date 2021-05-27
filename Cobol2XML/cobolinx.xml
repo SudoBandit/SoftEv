@@ -10,14 +10,14 @@
     <Record>
         <Level>77</Level>
         <Name>ind</Name>
-        <Length>99</Length>
-        <Type/>
+        <Length>2</Length>
+        <Type>Numeric</Type>
     </Record>
     <Record>
         <Level>77</Level>
         <Name>rest_divide</Name>
-        <Length>99</Length>
-        <Type/>
+        <Length>2</Length>
+        <Type>Numeric</Type>
     </Record>
     <Record>
         <Level>1</Level>
@@ -72,14 +72,14 @@
     <Record>
         <Level>5</Level>
         <Name>hex_value</Name>
-        <Length>0</Length>
-        <Type/>
+        <Length>1</Length>
+        <Type>Alphanumeric</Type>
     </Record>
     <Record>
         <Level>5</Level>
         <Name>dec_value</Name>
-        <Length>99</Length>
-        <Type/>
+        <Length>2</Length>
+        <Type>Numeric</Type>
     </Record>
     <division>procedure</division>
     <comment>convert from decimal to base system</comment>
