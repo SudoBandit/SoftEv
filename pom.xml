@@ -1,0 +1,5 @@
+<properties>
+  <sonar.projectKey>SudoBandit_SoftEv</sonar.projectKey>
+  <sonar.organization>sudobandit</sonar.organization>
+  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+</properties>
