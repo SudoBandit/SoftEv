@@ -40,6 +40,17 @@ public class Literal extends Terminal {
 public Literal(String s) {
 	literal = new Token(s);
 }
+
+public Literal(int i) {
+	literal = new Token(i);
+}
+
+
+public Literal(double d) {
+	literal = new Token(d);
+	// TODO Auto-generated constructor stub
+}
+
 /**
  * Returns true if the literal this object equals an
  * assembly's next element.

@@ -27,8 +27,10 @@ import parse.Empty;
 import parse.Parser;
 import parse.Sequence;
 import parse.tokens.CaselessLiteral;
+import parse.tokens.Literal;
 import parse.tokens.Num;
 import parse.tokens.Symbol;
+import parse.tokens.TokenStringSource;
 import parse.tokens.Tokenizer;
 import parse.tokens.Word;
 
@@ -48,7 +50,7 @@ public class CobolParser {
 	public Parser cobol() {
 		Alternation a = new Alternation();
 		
-		a.add( recordDescription());
+		//a.add( recordDescription());
 		
 		a.add( commentLine() );
 		
@@ -65,7 +67,10 @@ public class CobolParser {
 		
 		a.add( DateWritten() );		
 	
-		a.add( remarks() );
+		a.add( redefinesDescription() );
+		
+		
+		//a.add( remarks() );
 		//currently not working with whitespace properly
 		
 		a.add(new Empty());
@@ -75,25 +80,29 @@ public class CobolParser {
 	private Parser recordDescription() {
 		Sequence s = new Sequence();
 		s.add(new Num());
-		
-		s.add(new Word() );
-		
-	
-		
+		s.add(new Word());
 		s.add(new CaselessLiteral("pic").discard() );
-		
-		//s.add(new Num());
-//		
-//		s.add(new Symbol('(').discard());
-//		s.add(new Num());
-//		s.add(new Symbol(')').discard());
-//		s.add(new Symbol('.').discard());
-		s.setAssembler(new recordDescriptionAssembler());
-		
-
-
+		s.setAssembler(new RecordDescriptionAssembler());
 		return s;
 	}
+	
+	private Parser redefinesDescription() {
+		Sequence s = new Sequence();
+		s.add(new Literal(1.0).discard());
+		s.add(new Word());
+		s.add(new CaselessLiteral("redefines").discard());
+		s.add(new Word());
+		s.setAssembler(new RedefinesDescriptionAssembler());
+		return s;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/*
 	 * Return a parser that will recognize the grammar:
@@ -193,7 +202,7 @@ public class CobolParser {
 	 */
 	public static Tokenizer tokenizer() {
 		Tokenizer t = new Tokenizer();
-		//t.wordState().setWordChars(' ', ' ', false);
+		t.wordState().setWordChars(' ', ' ', false);
 		return t;
 	}
 

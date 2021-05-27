@@ -1,13 +1,13 @@
 package cobol;
 import parse.*;
 import parse.tokens.*;
-public class recordDescriptionAssembler extends Assembler {
+public class RecordDescriptionAssembler extends Assembler {
 	/**
 	 *
 	 * @param Assembly the assembly to work on
 	 */
 	public void workOn(Assembly a) {
-		//System.out.println(a);
+		System.out.println(a);
 		
 		Cobol c = new Cobol();
 		
@@ -23,6 +23,7 @@ public class recordDescriptionAssembler extends Assembler {
 			  
 			 //
 			 		String symbol = t.toString();
+			 		
 			 		
 			 		String description ="";
 			 		if(symbol.equals("9.0")) {
@@ -45,6 +46,7 @@ public class recordDescriptionAssembler extends Assembler {
 			 			description = "Assumed Decimal";
 			 		}
 			 		c.setRecordDescriptionSymbol(symbol);
+			 		//System.out.println("Symbol check" + symbol);
 			 		c.setRecordDescriptionPicDesc( description); 
 			 		a.nextElement();
 			 		

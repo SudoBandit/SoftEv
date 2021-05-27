@@ -39,8 +39,23 @@ public class Cobol implements PubliclyCloneable {
 	protected String recordDescriptionSymbol;
 	protected String recordDescriptionPicDesc;
 	protected String recordDescriptionName;
+	protected String redefinedName;
+	protected String definedName;
+	
 	protected int recordDescriptionType;
 	
+	public String getRedefinedName() {
+		return redefinedName;
+	}
+	public void setRedefinedName(String redefinedName) {
+		this.redefinedName=redefinedName;
+	}
+	public String getDefinedName() {
+		return definedName;
+	}
+	public void setDefinedName(String definedName) {
+		this.definedName=definedName;
+	}
 	
 	
 	public int getRecordDescriptionType() {

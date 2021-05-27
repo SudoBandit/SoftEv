@@ -57,6 +57,16 @@ public class XMLPayload {
 	
 	
 	public void addElements(Cobol c) {
+		
+		
+		
+		String redefinesDescription = c.getRedefinedName();
+		if (redefinesDescription!= null) {
+		this.addRedefinesDescription(redefinesDescription,c.getDefinedName(),c.getRecordDescriptionPicDesc(), c.getRecordDescriptionLength(),c.getRecordDescriptionSymbol());
+		}		
+		
+		
+		
 		/*
 		* add recordDescription element
 		*/
@@ -162,34 +172,94 @@ public class XMLPayload {
 	}
 	
 
- 	private void addRecordDescriptionElement(String recordDescription, int recordDescriptionLength, String recordDescriptionSymbol, String recordDescriptionPicDesc, int type) {
-		// TODO Auto-generated method stub
- 		Element recordDescriptionElement = doc.createElement("Data_Type");
+ 	private void addRedefinesDescription(String redefinedName, String definedName, String recordDescriptionPicDesc,
+			int recordDescriptionLength, String recordDescriptionSymbol) {
  		
- 		Attr attrType4 = doc.createAttribute("Type");
-		attrType4.setValue(Integer.toString(type));
-		recordDescriptionElement.setAttributeNode(attrType4);
-		
- 		Attr attrType = doc.createAttribute("Name");
-		attrType.setValue(recordDescription);
-		recordDescriptionElement.setAttributeNode(attrType);
-		
-		Attr attrType1 = doc.createAttribute("Length");
-		attrType1.setValue(Integer.toString(recordDescriptionLength));
-		recordDescriptionElement.setAttributeNode(attrType1);
-		if(type == 1) {
-		Attr attrType2 = doc.createAttribute("Symbol");
-		attrType2.setValue(recordDescriptionSymbol);
-		recordDescriptionElement.setAttributeNode(attrType2);
-		
-		Attr attrType3 = doc.createAttribute("Pic_Description");
-		attrType3.setValue(recordDescriptionPicDesc);
-		recordDescriptionElement.setAttributeNode(attrType3);
-		}
-		rootElement.appendChild(recordDescriptionElement);
+ 		
+ 		Element recordRedefined=doc.createElement("Record");
+ 			//type == 1
+ 
+ 		
+ 			Element recordName=doc.createElement("Name");
+ 				recordName.appendChild(doc.createTextNode(redefinedName));
+ 				recordRedefined.appendChild(recordName);
+ 				
+ 			Element redefinedSubject = doc.createElement("Redefines");
+ 				redefinedSubject.appendChild(doc.createTextNode(definedName));
+ 				recordRedefined.appendChild(redefinedSubject);
+ 		
+ 		
+ 		if (null!=recordDescriptionPicDesc){
+ 				System.out.println("this should say pic = ");
+
+ 			Element reservedSpace = doc.createElement("Size");
+ 				reservedSpace.appendChild(doc.createTextNode(Integer.toString(recordDescriptionLength)));
+ 				recordRedefined.appendChild(reservedSpace);
+ 			Element recordType = doc.createElement("Type");
+ 				recordType.appendChild(doc.createTextNode(recordDescriptionPicDesc));
+ 				recordRedefined.appendChild(recordType);
+ 			
+ 		}
+		rootElement.appendChild(recordRedefined);		
 	}
 
 
+	private void addRecordDescriptionElement(String recordDescription, int recordDescriptionLength, String recordDescriptionSymbol, String recordDescriptionPicDesc, int type) {
+
+		/*
+		 * Element recordDescriptionElement = doc.createElement("Record");
+		 * 
+		 * Element recordLevel =doc.createElement("Level");
+		 * recordLevel.appendChild(doc.createTextNode(String.valueOf(type)));
+		 * recordDescriptionElement.appendChild(recordLevel);
+		 * 
+		 * if (type==88) { Element recordValue=doc.createElement("Value");
+		 * recordValue.appendChild(doc.createTextNode("needs input"));
+		 * recordDescriptionElement.appendChild(recordValue); }
+		 * 
+		 * Element recordName=doc.createElement("Name");
+		 * recordName.appendChild(doc.createTextNode(recordDescription));
+		 * recordDescriptionElement.appendChild(recordName);
+		 * 
+		 * Element recordLength=doc.createElement("Length");
+		 * recordLength.appendChild(doc.createTextNode(String.valueOf(
+		 * recordDescriptionLength)));
+		 * recordDescriptionElement.appendChild(recordLength);
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * rootElement.appendChild(recordDescriptionElement);
+		 * 
+		 */
+// 		Element recordDescriptionElement = doc.createElement("Data_Type");
+// 		
+// 		Attr attrType4 = doc.createAttribute("Type");
+//		attrType4.setValue(Integer.toString(type));
+//		recordDescriptionElement.setAttributeNode(attrType4);
+//		
+// 		Attr attrType = doc.createAttribute("Name");
+//		attrType.setValue(recordDescription);
+//		recordDescriptionElement.setAttributeNode(attrType);
+//		
+//		Attr attrType1 = doc.createAttribute("Length");
+//		attrType1.setValue(Integer.toString(recordDescriptionLength));
+//		recordDescriptionElement.setAttributeNode(attrType1);
+//		if(type == 1) {
+//			//if(!recordDescriptionSymbol.equals(".")); 
+//		Attr attrType2 = doc.createAttribute("Symbol");
+//		attrType2.setValue(recordDescriptionSymbol);
+//		recordDescriptionElement.setAttributeNode(attrType2);
+//		
+//		Attr attrType3 = doc.createAttribute("Pic_Description");
+//		attrType3.setValue(recordDescriptionPicDesc);
+//		recordDescriptionElement.setAttributeNode(attrType3);
+//		}
+//		rootElement.appendChild(recordDescriptionElement);
+	}
+	
 	void addRemarksElement(String remarks) {
  			Element remarksName = doc.createElement("Remarks");
  			remarksName.appendChild(doc.createTextNode(remarks));
@@ -299,25 +369,15 @@ public class XMLPayload {
 			// Program ID element
 			if(constantName != null) {
 			Element cobolname = doc.createElement("Constant");
-			// insert name of constant into XML file
-			Element constID = doc.createElement("Constant");
-			Attr attrType2 = doc.createAttribute("Name" );
-			attrType2.setValue( constantName );
-			constID.setAttributeNode(attrType2);
-			cobolname.appendChild(constID);
-			// insert line number of constant into XML file
-			//This is currently inserting 88 which isn't the line number
-			Element lineID = doc.createElement(constantName);
-			Attr attrType = doc.createAttribute("Line_Number" );
-			attrType.setValue( Integer.toString(lineNumber) );
-			lineID.setAttributeNode(attrType);
-			cobolname.appendChild(lineID);
-			// insert value of constant into XML file
-			Element constantID = doc.createElement(constantName);
-			Attr attrType1 = doc.createAttribute("Value" );
-			attrType1.setValue( Double.toString(constantValue) );
-			constantID.setAttributeNode(attrType1);
-			cobolname.appendChild(constantID);
+			
+				Element constID = doc.createElement("Name");
+				constID.appendChild(doc.createTextNode(constantName));
+			
+				Element cValue = doc.createElement("Value");
+				cValue.appendChild(doc.createTextNode(Double.toString(constantValue)));
+			
+			cobolname.appendChild(constID);	
+			cobolname.appendChild(cValue);
 			rootElement.appendChild(cobolname);
 			}
 			}
