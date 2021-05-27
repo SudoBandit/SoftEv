@@ -7,35 +7,32 @@
     <year-date-written>1995</year-date-written>
     <division>data</division>
     <section>working-storage</section>
-    <Data_Type Length="99" Name="ind" Type="77"/>
-    <Data_Type Length="99" Name="rest_divide" Type="77"/>
-    <Data_Type Length="16" Name="w_number" Pic_Description="Numeric" Symbol="9" Type="1"/>
-    <Data_Type Length="16" Name="entry_number" Pic_Description="Numeric" Symbol="9" Type="1"/>
-    <Data_Type Length="0" Name="entry_number" Type="0"/>
-    <Data_Type Length="2" Name="current_base" Pic_Description="Numeric" Symbol="9" Type="1"/>
+    <Record>
+        <Name>entry_char</Name>
+        <Redefines>entry_number</Redefines>
+        <Size>16</Size>
+        <Type>Alphanumeric</Type>
+    </Record>
     <Constant>
-        <Constant Name="base_2"/>
-        <base_2 Line_Number="88"/>
-        <base_2 Value="2.0"/>
+        <Name>base_2</Name>
+        <Value>2.0</Value>
     </Constant>
     <Constant>
-        <Constant Name="base_8"/>
-        <base_8 Line_Number="88"/>
-        <base_8 Value="8.0"/>
+        <Name>base_8</Name>
+        <Value>8.0</Value>
     </Constant>
     <Constant>
-        <Constant Name="base_10"/>
-        <base_10 Line_Number="88"/>
-        <base_10 Value="10.0"/>
+        <Name>base_10</Name>
+        <Value>10.0</Value>
     </Constant>
     <Constant>
-        <Constant Name="base_16"/>
-        <base_16 Line_Number="88"/>
-        <base_16 Value="16.0"/>
+        <Name>base_16</Name>
+        <Value>16.0</Value>
     </Constant>
-    <Data_Type Length="48" Name="hex_dec_data" Pic_Description="Alphanumeric" Symbol="x" Type="1"/>
-    <Data_Type Length="0" Name="hex_value" Type="5"/>
-    <Data_Type Length="99" Name="dec_value" Type="5"/>
+    <Record>
+        <Name>hex_decimal_table</Name>
+        <Redefines>hex_dec_data</Redefines>
+    </Record>
     <division>procedure</division>
     <comment>convert from decimal to base system</comment>
     <comment>convert from base to dicimal system</comment>

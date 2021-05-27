@@ -121,7 +121,7 @@ public class CobolParser {
 //		s.add(new Num());
 //		s.add(new Symbol(')').discard());
 //		s.add(new Symbol('.').discard());
-		s.setAssembler(new recordDescriptionAssembler());
+		s.setAssembler(new RecordDescriptionAssembler());
 
 
 
