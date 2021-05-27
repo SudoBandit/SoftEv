@@ -7,8 +7,10 @@ public class RecordDescriptionAssembler extends Assembler {
 	 * @param Assembly the assembly to work on
 	 */
 	public void workOn(Assembly a) {
-		System.out.println(a);
-		
+		//System.out.println(a);
+		Integer length=0;
+		String symbol ="";
+			String description ="";
 		Cobol c = new Cobol();
 		
 		Token t = (Token) a.pop();
@@ -18,16 +20,29 @@ public class RecordDescriptionAssembler extends Assembler {
 		 Integer type = (int) t.nval();
 		 c.setRecordDescriptionType(type) ;
 		 
-		 if(type == 1) {
+		 if(type == 1 ||type == 77 || type ==5) {
 			  t = (Token)  a.nextElement();
+			  length=0;
+			  
+			  		if (t.isNumber()){
+			  			symbol = Integer.toString((int) t.nval());	
 
-			 		String symbol = t.toString();
-			 		
-			 		
-			 		String description ="";
-			 		if(symbol.equals("9.0")) {
+			  			if(symbol.length()>1) {
+			  				length = length+symbol.length();
+			  				symbol=symbol.substring(0, 1);
+			 			}
+
+			 		}
+			  		else {
+			  			 symbol = t.sval();
+			  			if(symbol.length()>1) {
+			  				length = length+symbol.length();
+			  				}
+			  			symbol=symbol.substring(0, 1);
+			  		}
+			 				 		
+			 		if(symbol.equals("9")) {
 			 			description = "Numeric";
-			 			symbol ="9";
 			 		}
 			 		else if(symbol.equals("a")){
 			 			description = "Alphabetic";
@@ -45,24 +60,43 @@ public class RecordDescriptionAssembler extends Assembler {
 			 			description = "Assumed Decimal";
 			 		}
 			 		c.setRecordDescriptionSymbol(symbol);
-			 		//System.out.println("Symbol check" + symbol);
 			 		c.setRecordDescriptionPicDesc( description); 
-			 		a.nextElement();
 			 		
+		 			}
+		 				else if(  type >= 2  && type <= 49 ) {
+		 						c.setRecordDescriptionSymbol(null);
+		 						c.setRecordDescriptionPicDesc( null);
+		 			}
+		 
+		 if (a.hasMoreElements()) {
+			 
+			 switch (a.nextElement().toString()){
+			 
+			 case ".":
+				 if(length==0) {
+					 length=1;
+				 }
+				 
+				 c.setRecordDescriptionLength(length);
+				 break;
+			 case "(":
+				 t= (Token) a.nextElement();
+				 //System.out.println("number that is value "+t);
+				 
+				 c.setRecordDescriptionLength(length+(int) t.nval());
+				 break;
+			 
+			 default:
+				 c.setRecordDescriptionLength(length);
+				 break;
+				 }
+			 a.setTarget(c);
+			 
 		 }
-		 else if(  type >= 2  && type <= 49 ) {
-		 	 c.setRecordDescriptionSymbol(null);
-			 c.setRecordDescriptionPicDesc( null);
-		 }
-		 else if(type == 77) {
-		 	 c.setRecordDescriptionSymbol(null);
-			 c.setRecordDescriptionPicDesc( null);
-		 }
-		  t = (Token) a.nextElement();
-		 //System.out.println(t);
-		 c.setRecordDescriptionLength((int) t.nval());
+		 else {
+		 c.setRecordDescriptionLength(length);
 		a.setTarget(c);
-		
+		 }
 	}
 }
 
