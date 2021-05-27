@@ -72,7 +72,8 @@ public class XMLPayload {
 		*/
 		String recordDescription = c.getRecordDescriptionName();
 		if (recordDescription != null) {
-		this.addRecordDescriptionElement( recordDescription,
+			
+		this.addRecordDescriptionElement( recordDescription, 
 		c.getRecordDescriptionLength(), c.getRecordDescriptionSymbol(), c.getRecordDescriptionPicDesc(), c.getRecordDescriptionType());
 		//System.out.println("Got Section");
 		// Add contents of procedure division
@@ -177,8 +178,7 @@ public class XMLPayload {
  		
  		
  		Element recordRedefined=doc.createElement("Record");
- 			//type == 1
- 
+
  		
  			Element recordName=doc.createElement("Name");
  				recordName.appendChild(doc.createTextNode(redefinedName));
@@ -190,7 +190,7 @@ public class XMLPayload {
  		
  		
  		if (null!=recordDescriptionPicDesc){
- 				System.out.println("this should say pic = ");
+ 				//System.out.println("this should say pic = ");
 
  			Element reservedSpace = doc.createElement("Size");
  				reservedSpace.appendChild(doc.createTextNode(Integer.toString(recordDescriptionLength)));
@@ -206,34 +206,33 @@ public class XMLPayload {
 
 	private void addRecordDescriptionElement(String recordDescription, int recordDescriptionLength, String recordDescriptionSymbol, String recordDescriptionPicDesc, int type) {
 
-		/*
-		 * Element recordDescriptionElement = doc.createElement("Record");
-		 * 
-		 * Element recordLevel =doc.createElement("Level");
-		 * recordLevel.appendChild(doc.createTextNode(String.valueOf(type)));
-		 * recordDescriptionElement.appendChild(recordLevel);
-		 * 
-		 * if (type==88) { Element recordValue=doc.createElement("Value");
-		 * recordValue.appendChild(doc.createTextNode("needs input"));
-		 * recordDescriptionElement.appendChild(recordValue); }
-		 * 
-		 * Element recordName=doc.createElement("Name");
-		 * recordName.appendChild(doc.createTextNode(recordDescription));
-		 * recordDescriptionElement.appendChild(recordName);
-		 * 
-		 * Element recordLength=doc.createElement("Length");
-		 * recordLength.appendChild(doc.createTextNode(String.valueOf(
-		 * recordDescriptionLength)));
-		 * recordDescriptionElement.appendChild(recordLength);
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * rootElement.appendChild(recordDescriptionElement);
-		 * 
-		 */
+		
+		Element recordDescriptionElement = doc.createElement("Record");
+		  
+		Element recordLevel =doc.createElement("Level");
+		  	recordLevel.appendChild(doc.createTextNode(String.valueOf(type)));
+		  	recordDescriptionElement.appendChild(recordLevel);
+		
+		
+	Element recordName=doc.createElement("Name");
+		  	recordName.appendChild(doc.createTextNode(recordDescription));
+		  	recordDescriptionElement.appendChild(recordName);
+		  
+  
+	 Element recordValue=doc.createElement("Length");
+	 		 recordValue.appendChild(doc.createTextNode(Integer.toString(recordDescriptionLength)));
+		  	 recordDescriptionElement.appendChild(recordValue); 
+
+
+		  
+		  Element recordType=doc.createElement("Type");
+		  	recordType.appendChild(doc.createTextNode(recordDescriptionPicDesc));
+		  	recordDescriptionElement.appendChild(recordType); 
+		  
+		   	  		  
+		  rootElement.appendChild(recordDescriptionElement);
+		  
+		 
 // 		Element recordDescriptionElement = doc.createElement("Data_Type");
 // 		
 // 		Attr attrType4 = doc.createAttribute("Type");

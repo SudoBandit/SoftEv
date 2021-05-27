@@ -7,7 +7,6 @@ public class RedefinesDescriptionAssembler extends Assembler {
 	 * @param Assembly the assembly to work on
 	 */
 	public void workOn(Assembly a) {
-		System.out.println(a);
 		int length = 0;
 		
 		Cobol c = new Cobol();
@@ -30,6 +29,7 @@ public class RedefinesDescriptionAssembler extends Assembler {
 			  	} 
 			  	else 
 			  	{
+			  		
 			  		t = (Token)  a.nextElement();  		
 			  		String symbol = t.toString();
 			 		if(symbol.length()>1) {
@@ -37,7 +37,7 @@ public class RedefinesDescriptionAssembler extends Assembler {
 			 			symbol=symbol.substring(0, 1);
 			 		}
 			 		
-			 		if(symbol.equals("9.0")) {
+			 		if(symbol.equals("9")) {
 			 			description = "Numeric";
 			 			symbol ="9";
 			 		}
