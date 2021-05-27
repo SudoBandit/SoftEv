@@ -18,7 +18,6 @@ public class Parsertest {
 		t.setString("program-id. JB-base.");
 		Assembly in = new TokenAssembly(t);
 		Assembly out = p.bestMatch(in);
-		System.out.println(out);
 		assertFalse( out.stackIsEmpty() );	}
 
 }

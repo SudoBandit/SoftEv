@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ LitTokenTest.class, NumTest.class, Parsertest.class, SymbolTest.class, TokenTest.class })
+@SuiteClasses({ LitTokenTest.class, NumTest.class, Parsertest.class, SymbolTest.class, TokenTest.class, CommentTest.class, DataTypetest.class })
 public class AllTests {
 
 }
