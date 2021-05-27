@@ -7,7 +7,7 @@ public class recordDescriptionAssembler extends Assembler {
 	 * @param Assembly the assembly to work on
 	 */
 	public void workOn(Assembly a) {
-		//System.out.println(a);
+		System.out.println(a);
 		
 		Cobol c = new Cobol();
 		
@@ -20,8 +20,7 @@ public class recordDescriptionAssembler extends Assembler {
 		 
 		 if(type == 1) {
 			  t = (Token)  a.nextElement();
-			  
-			 //
+
 			 		String symbol = t.toString();
 			 		
 			 		String description ="";

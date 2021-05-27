@@ -49,7 +49,7 @@ public class CobolParser {
 		Alternation a = new Alternation();
 		
 		a.add( recordDescription());
-		
+		a.add( recordDescription2());
 		a.add( commentLine() );
 		
 		a.add( constantValue() );
@@ -95,6 +95,29 @@ public class CobolParser {
 		return s;
 	}
 
+	private Parser recordDescription2() {
+		Sequence s = new Sequence();
+		s.add(new Num());
+		
+		s.add(new Word() );
+		
+		s.add(new Word());
+		s.add(new Word());
+		
+		s.add(new CaselessLiteral("pic").discard() );
+		
+		
+//		
+//		s.add(new Symbol('(').discard());
+//		s.add(new Num());
+//		s.add(new Symbol(')').discard());
+//		s.add(new Symbol('.').discard());
+		s.setAssembler(new recordDescriptionAssembler());
+		
+
+
+		return s;
+	}
 	/*
 	 * Return a parser that will recognize the grammar:
 	 * 
