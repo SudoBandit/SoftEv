@@ -8,10 +8,40 @@
     <division>data</division>
     <section>working-storage</section>
     <Record>
+        <Level>77</Level>
+        <Name>ind</Name>
+        <Length>99</Length>
+        <Type/>
+    </Record>
+    <Record>
+        <Level>77</Level>
+        <Name>rest_divide</Name>
+        <Length>99</Length>
+        <Type/>
+    </Record>
+    <Record>
+        <Level>1</Level>
+        <Name>w_number</Name>
+        <Length>16</Length>
+        <Type>Numeric</Type>
+    </Record>
+    <Record>
+        <Level>1</Level>
+        <Name>entry_number</Name>
+        <Length>16</Length>
+        <Type>Numeric</Type>
+    </Record>
+    <Record>
         <Name>entry_char</Name>
         <Redefines>entry_number</Redefines>
         <Size>16</Size>
         <Type>Alphanumeric</Type>
+    </Record>
+    <Record>
+        <Level>1</Level>
+        <Name>current_base</Name>
+        <Length>2</Length>
+        <Type>Numeric</Type>
     </Record>
     <Constant>
         <Name>base_2</Name>
@@ -30,8 +60,26 @@
         <Value>16.0</Value>
     </Constant>
     <Record>
+        <Level>1</Level>
+        <Name>hex_dec_data</Name>
+        <Length>48</Length>
+        <Type>Alphanumeric</Type>
+    </Record>
+    <Record>
         <Name>hex_decimal_table</Name>
         <Redefines>hex_dec_data</Redefines>
+    </Record>
+    <Record>
+        <Level>5</Level>
+        <Name>hex_value</Name>
+        <Length>0</Length>
+        <Type/>
+    </Record>
+    <Record>
+        <Level>5</Level>
+        <Name>dec_value</Name>
+        <Length>99</Length>
+        <Type/>
     </Record>
     <division>procedure</division>
     <comment>convert from decimal to base system</comment>

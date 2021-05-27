@@ -95,8 +95,6 @@ public class CobolParser {
 	}
 
 
-=======
->>>>>>> 4d6747701653bea958b132d1e108ca6e7dd5cec4
 	/*
 	 * Return a parser that will recognize the grammar:
 	 *
